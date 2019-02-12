@@ -39,10 +39,17 @@ describe('Async Address Book', function() {
     it('should grab initial contacts', function() {
         //muutujat esitatakse veel korra
         var addressBook = new AddressBook();
-
-        //Asünkroon meetod, millele me eeldame, et addressBook =true
-        addressBook.getInitialContacts();
+        //tagasikutsel on märgitud done, et teatada süsteemile, et
+        // teeme, mida vaja ja testimist võib jätkata
+        beforeEach(function(done)) {
+            addressBook.getInitialContacts(function () {
+                done();
+            });
+        });
+  //initsialiseerimesüsteemile, et on done
+    it('should grab initial contacts', function(done) {
         expect(addressBook.initialComplete).toBe(true);
+        done();
     });
 });
 
